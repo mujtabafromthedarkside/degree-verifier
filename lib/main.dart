@@ -1,6 +1,9 @@
+import 'package:degree_verifier/Printer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:degree_verifier/secrets.dart';
 
@@ -49,9 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    httpClient = Client();
-    ethClient = Web3Client(secrets["web3Client"]!, httpClient);
-    getBalance();
+    // httpClient = Client();
+    // ethClient = Web3Client(secrets["web3Client"]!, httpClient);
+    // getBalance();
   }
 
   Future<DeployedContract> loadContract() async {
@@ -115,29 +118,45 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+
+            // button to get Degree
+            ElevatedButton(
+              onPressed: () async {
+                await Printing.layoutPdf(
+                  onLayout: (PdfPageFormat format) async => generateDegree(),
+                );
+              },
+              child: const Text("save pdf"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await Printing.sharePdf(bytes: await generateDegree(), filename: 'receipt.pdf');
+              },
+              child: const Text("share pdf"),
+            ),
             // button to get balance
-            ElevatedButton(
-              onPressed: () {
-                getBalance();
-              },
-              child: const Text("Get Balance"),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     getBalance();
+            //   },
+            //   child: const Text("Get Balance"),
+            // ),
 
-            // button to deposit balance
-            ElevatedButton(
-              onPressed: () {
-                sendCoin();
-              },
-              child: const Text("Deposit Balance"),
-            ),
+            // // button to deposit balance
+            // ElevatedButton(
+            //   onPressed: () {
+            //     sendCoin();
+            //   },
+            //   child: const Text("Deposit Balance"),
+            // ),
 
-            // button to withdraw balance
-            ElevatedButton(
-              onPressed: () {
-                withdrawCoin();
-              },
-              child: const Text("Withdraw Balance"),
-            ),
+            // // button to withdraw balance
+            // ElevatedButton(
+            //   onPressed: () {
+            //     withdrawCoin();
+            //   },
+            //   child: const Text("Withdraw Balance"),
+            // ),
           ],
         ),
       ),
