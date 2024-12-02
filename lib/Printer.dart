@@ -1,19 +1,10 @@
 import 'dart:math';
-import 'dart:typed_data';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw; // Import widgets for layout
 
-Future<Uint8List> generateDegree() async {
+Future<Uint8List> generateDegree(Map<String, String> details) async {
   final pdf = pw.Document();
-
-  String uni_name = "Ghulam Ishaq Khan Institute of Engineering Sciences and Technology";
-  String date = "June Twenty First, Year Two Thousand Twenty Five";
-  String degree_type = "Bachelor of Science";
-  String degree_field = "Computer Science";
-  String student_name = "Mujtaba Omar";
-  String reg_no = "2021495";
 
   final Uint8List imageBytes = await rootBundle.load('lib/assets/giki_logo_rb_wb2.png').then((data) => data.buffer.asUint8List());
   final pw.MemoryImage imageGIKI = pw.MemoryImage(imageBytes);
@@ -50,26 +41,26 @@ Future<Uint8List> generateDegree() async {
                   pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
                     pw.Text("Serial No: ${Random().nextInt(1000000).toString().padLeft(6, '0')}"),
                     pw.Image(imageGIKI, width: 100, height: 100, fit: pw.BoxFit.cover),
-                    pw.Text("Reg No: $reg_no"),
+                    pw.Text("Reg No: ${details["reg"]!}"),
                   ]),
                   pw.SizedBox(height: 5),
-                  pw.Text(uni_name, style: uniStyle),
+                  pw.Text(details["uni"]!, style: uniStyle),
                   pw.SizedBox(height: 15),
                   pw.Text("on the recommendation of the Faculty and Governing Council", style: fillerStyle),
                   pw.SizedBox(height: 10),
-                  pw.Text(student_name.toUpperCase(), style: nameStyle),
+                  pw.Text(details["name"]!.toUpperCase(), style: nameStyle),
                   pw.SizedBox(height: 10),
                   pw.Text("is admitted to the degree of", style: fillerStyle),
                   pw.SizedBox(height: 10),
-                  pw.Text(degree_type, style: degreeStyle),
+                  pw.Text(details["type"]!, style: degreeStyle),
                   pw.SizedBox(height: 5),
                   pw.Text("in", style: fillerStyle),
                   pw.SizedBox(height: 5),
-                  pw.Text(degree_field, style: degreeStyle),
+                  pw.Text(details["field"]!, style: degreeStyle),
                   pw.SizedBox(height: 15),
                   pw.Text("Awarded on", style: fillerStyle2),
                   pw.SizedBox(height: 10),
-                  pw.Text(date, style: fillerStyle2),
+                  pw.Text(details["date"]!, style: fillerStyle2),
                 ]),
                 pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
                   pw.Column(children: [

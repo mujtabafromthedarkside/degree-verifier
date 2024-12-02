@@ -1,5 +1,5 @@
 name: degree_verifier
-description: "A new Flutter project."
+description: "Degree Verification System Using Blockchain"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -80,6 +80,8 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  uses-material-design: true
+
   fonts:
     - family: Times New Roman
       fonts:
