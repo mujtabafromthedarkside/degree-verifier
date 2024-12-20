@@ -1,6 +1,6 @@
 import 'package:web3dart/web3dart.dart';
 import 'package:flutter/services.dart';
-import 'package:degree_verifier/secrets.dart';
+import 'package:degree_verifier/Config/secrets.dart';
 
 Future<DeployedContract> loadContract() async {
   String abi = await rootBundle.loadString("lib/assets/abi2.json");

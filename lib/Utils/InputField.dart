@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:degree_verifier/constants.dart';
+import 'package:degree_verifier/Config/constants.dart';
 
 class InputBox extends StatefulWidget {
   final Function(String)? onValueChanged;

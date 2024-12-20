@@ -1,4 +1,4 @@
-import 'package:degree_verifier/constants.dart';
+import 'package:degree_verifier/Config/constants.dart';
 import 'package:flutter/material.dart';
 
 void showSnackBar(BuildContext context, String message, {int duration = 2, bool error = true}) {

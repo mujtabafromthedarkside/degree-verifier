@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:degree_verifier/DegreeVerifier.dart';
-import 'package:degree_verifier/DegreeGenerator.dart';
-import 'package:degree_verifier/SplashScreen.dart';
-import 'package:degree_verifier/Degree.dart';
+import 'package:degree_verifier/Pages/DegreeVerifier.dart';
+import 'package:degree_verifier/Pages/DegreeGenerator.dart';
+import 'package:degree_verifier/Pages/SplashScreen.dart';
+import 'package:degree_verifier/Pages/Degree.dart';
 
 void main() {
   runApp(const MyApp());

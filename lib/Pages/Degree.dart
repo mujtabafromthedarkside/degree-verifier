@@ -1,7 +1,6 @@
-import 'package:degree_verifier/Printer.dart';
-import 'package:degree_verifier/SideBar.dart';
-import 'package:degree_verifier/constants.dart';
-import 'package:degree_verifier/utils.dart';
+import 'package:degree_verifier/Utils/Printer.dart';
+import 'package:degree_verifier/Config/constants.dart';
+import 'package:degree_verifier/Utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
