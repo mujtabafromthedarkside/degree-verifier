@@ -59,7 +59,7 @@ class _SideBarState extends State<SideBar> {
                 Container(margin: EdgeInsets.fromLTRB(10, 0, 0, 0), child: Text("Degree Verification System", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20))),
                 sidebarDivider(),
                 SideBarItem(context, "Verify Degree", "/DegreeVerifier", Icons.people_alt),
-                SideBarItem(context, "Generate Degree", "/DegreeGenerator", Icons.price_change),
+                SideBarItem(context, "Add Degree", "/AddDegree", Icons.price_change),
               ],
             ),
           ),

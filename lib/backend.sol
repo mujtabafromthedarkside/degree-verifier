@@ -4,7 +4,7 @@ contract degreeVerifier{
     // Store student data as a mapping from code to details
     mapping(bytes8 => string) private STDs; // code -> "Uni|Name|Reg|Date|Type|Field"
     mapping(bytes4 => bool) private UNIs;
-    // string[] private keys;                  // to keep track of keys because map is not iterable
+    bytes8[] private STDArray;
 
     constructor(){
         bytes4 uniCode = "GIKI";
@@ -15,6 +15,13 @@ contract degreeVerifier{
 
         testSTD = "TEST1111";
         STDs[testSTD] = "TEST|Std|123|021224|BS|CS";
+
+        STDArray.push("TEST1111");
+    }
+
+    function readLast() public view returns(string memory){
+        string memory data = string(abi.encodePacked(STDArray[STDArray.length - 1]));
+        return data;
     }
 
     // Verify a degree by code
@@ -54,27 +61,15 @@ contract degreeVerifier{
 
         // Add degree details to STD
         STDs[uniqueCode] = string(abi.encodePacked(uniCode, "|", name, "|", regNo, "|", date, "|", degreeType, "|", field));
+        STDArray.push(uniqueCode);
 
         return string(abi.encodePacked(uniqueCode)); // Return the generated code
-    }
-
-    function test_isUniRegistered(string memory uniCode) public view returns (string memory){
-        require(bytes(uniCode).length == 4, "uniCode must be exactly 4 characters.");
-
-        if(isUniRegistered(bytes4(bytes(uniCode)))) return "YES";
-        else return "NO";
     }
 
     // Helper function to check if a university registration set exists
     function isUniRegistered(bytes4 uniCode) public view returns (bool) {
         // Check if any registration exists for this university code
         return UNIs[uniCode];
-    }
-
-    function test_generateUniqueCode(string memory uniCode) public view returns (string memory){
-        require(bytes(uniCode).length == 4, "uniCode must be exactly 4 characters.");
-
-        return string(abi.encodePacked(generateUniqueCode(bytes4(bytes(uniCode)))));
     }
 
     function generateUniqueCode(bytes4 uniCode) public view returns (bytes8) {

@@ -1,3 +1,5 @@
+import 'package:degree_verifier/SnackBar.dart';
+import 'package:degree_verifier/secrets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart';
@@ -35,42 +37,20 @@ class _DegreeVerifierState extends State<DegreeVerifier> {
   @override
   void initState() {
     super.initState();
-    // httpClient = Client();
-    // ethClient = Web3Client(secrets["web3Client"]!, httpClient);
-    // getBalance();
+    httpClient = Client();
+    ethClient = Web3Client(secrets["web3Client"]!, httpClient);
   }
 
-  Future<void> getBalance() async {
-    List<dynamic> result = await query(ethClient, "getBalance", []);
-    myData = result[0];
-    print("my Data: ");
-    print(myData);
+  Future<String> verifyDegree(String code) async {
+    List<dynamic> result = await query(ethClient, "VerifyDegree", [code]);
+    print("Received data: $result");
+    return result[0];
   }
 
-  Future<String> sendCoin() async {
-    var bigAmount = BigInt.from(100);
-    var response = await submit(ethClient, "depositBalance", [bigAmount]);
-    print("Deposited" + bigAmount.toString());
-    return response;
-  }
-
-  Future<String> withdrawCoin() async {
-    var bigAmount = BigInt.from(100);
-    var response = await submit(ethClient, "withdrawBalance", [bigAmount]);
-    print("Withdrawn" + bigAmount.toString());
-    return response;
-  }
-
-  Map<String, String> details = {
-    "uni": "Ghulam Ishaq Khan Institute of Engineering Sciences and Technology",
-    "reg": "",
-    "name": "",
-    "type": "",
-    "field": "",
-    "date": "",
-  };
-
+  String degreeCode = "";
   final GlobalKey<FormState> _formKey = GlobalKey();
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -82,83 +62,78 @@ class _DegreeVerifierState extends State<DegreeVerifier> {
         backgroundColor: designColor,
         title: Text(widget.title, style: TextStyle(color: Colors.white)),
       ),
-      body: Container(
-        margin: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Form(
-                key: _formKey,
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(color: designColor),
+            )
+          : Container(
+              margin: const EdgeInsets.all(20),
+              child: SingleChildScrollView(
                 child: Column(
-                  children: [
-                    InputBox(
-                      labelText: "Student Name",
-                      hintText: 'Mujtaba Omar',
-                      initialValue: details["name"]!,
-                      onSaved: (value) {
-                        details["name"] = value ?? "";
-                      },
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          InputBox(
+                            labelText: "Degree Code",
+                            hintText: 'TEST1111',
+                            initialValue: degreeCode,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) return "Please enter valid value";
+                              if (value.length != 8) return "Degree Code must be 8 characters long";
+                              return null;
+                            },
+                            onSaved: (value) {
+                              degreeCode = value ?? "";
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                    InputBox(
-                      labelText: "Registration No",
-                      hintText: '2021495',
-                      initialValue: details["reg"]!,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) return "Please enter valid value";
-                        if (value.length != 7) return "Registration number must be 7 digits long";
-                        if (num.tryParse(value) == null) return "Registration number must be a number";
-                        return null;
+
+                    SizedBox(height: 30),
+                    // button to get Degree
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate() == false) return;
+                        _formKey.currentState!.save();
+
+                        setState(() {
+                          isLoading = true;
+                        });
+                        verifyDegree(degreeCode).then((value) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          if (value == "NULL") {
+                            showSnackBar(context, "Degree doesn't exist");
+                          } else {
+                            Navigator.pushNamed(
+                              context,
+                              '/Degree',
+                              arguments: value,
+                            );
+                          }
+                        });
+                        // showSnackBar(context, degreeCode);
+
+                        // send degree code to api and get response
+                        // if "NULL", show message "degree doesn't exist"
+                        // else show the details of the degree with option to save/share pdf
+
+                        // await Printing.layoutPdf(
+                        //   onLayout: (PdfPageFormat format) async => generateDegree(details),
+                        // );
                       },
-                      onSaved: (value) {
-                        details["reg"] = value ?? "";
-                      },
-                    ),
-                    InputBox(
-                      labelText: "Degree Type",
-                      hintText: 'Bachelor of Science',
-                      initialValue: details["type"]!,
-                      onSaved: (value) {
-                        details["type"] = value ?? "";
-                      },
-                    ),
-                    InputBox(
-                      labelText: "Degree Field",
-                      hintText: 'Computer Science',
-                      initialValue: details["field"]!,
-                      onSaved: (value) {
-                        details["field"] = value ?? "";
-                      },
-                    ),
-                    InputBox(
-                      labelText: "Date",
-                      hintText: 'June Twenty First, Year Two Thousand Twenty Five',
-                      initialValue: details["date"]!,
-                      onSaved: (value) {
-                        details["date"] = value ?? "";
-                      },
+                      child: const Text("Verify Degree", style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(elevation: 0, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)), backgroundColor: designColor),
                     ),
                   ],
                 ),
               ),
-
-              SizedBox(height: 30),
-              // button to get Degree
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate() == false) return;
-                  _formKey.currentState!.save();
-                  await Printing.layoutPdf(
-                    onLayout: (PdfPageFormat format) async => generateDegree(details),
-                  );
-                },
-                child: const Text("Save PDF", style: TextStyle(color: Colors.white)),
-                style: ElevatedButton.styleFrom(elevation: 0, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)), backgroundColor: designColor),
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

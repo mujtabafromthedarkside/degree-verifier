@@ -4,4 +4,10 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:label="degree_verifier"/>
+        <!-- android:roundIcon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher"/> -->
+    <!-- <application android:label="Degree Verifier"/> -->
+        <!-- android:name="${applicationName}" -->
 </manifest>

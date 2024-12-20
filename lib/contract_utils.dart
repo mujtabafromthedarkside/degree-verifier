@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:degree_verifier/secrets.dart';
 
 Future<DeployedContract> loadContract() async {
-  String abi = await rootBundle.loadString("lib/assets/abi.json");
-  final contract = DeployedContract(ContractAbi.fromJson(abi, "mycoin"), EthereumAddress.fromHex(secrets["contractAddress"]!));
+  String abi = await rootBundle.loadString("lib/assets/abi2.json");
+  final contract = DeployedContract(ContractAbi.fromJson(abi, "degreeVerifier"), EthereumAddress.fromHex(secrets["contractAddress"]!));
   return contract;
 }
 
