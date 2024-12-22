@@ -1,17 +1,15 @@
-import 'package:degree_verifier/SnackBar.dart';
-import 'package:degree_verifier/contract_utils.dart';
-import 'package:degree_verifier/secrets.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-
-import 'package:pdf/pdf.dart';
-import 'package:printing/printing.dart';
-
-import 'package:degree_verifier/SideBar.dart';
-import 'package:degree_verifier/Printer.dart';
-import 'package:degree_verifier/InputField.dart';
-import 'package:degree_verifier/constants.dart';
 import 'package:web3dart/web3dart.dart';
+
+import 'package:degree_verifier/Utils/SnackBar.dart';
+import 'package:degree_verifier/Utils/contract_utils.dart';
+import 'package:degree_verifier/Utils/SideBar.dart';
+import 'package:degree_verifier/Utils/InputField.dart';
+
+import 'package:degree_verifier/Config/constants.dart';
+import 'package:degree_verifier/Config/secrets.dart';
+
 
 class DegreeGenerator extends StatefulWidget {
   final String title;

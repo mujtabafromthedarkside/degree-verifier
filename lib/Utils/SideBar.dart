@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:degree_verifier/constants.dart';
+import 'package:degree_verifier/Config/constants.dart';
 
 class SideBar extends StatefulWidget {
   const SideBar({super.key});
