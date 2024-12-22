@@ -33,11 +33,11 @@ The `lib/backend.sol` file can be compiled and deployed on the Remix IDE. This i
 Flutter is an open-source UI framework developed by Google for building natively compiled applications for mobile, web, and desktop from a single codebase. It uses the Dart programming language and provides rich pre-built widgets for fast development.
 
 <p align="center">
-  <img src="readme/ss_add.jpeg" alt="Screenshot of app frontend for adding degree" width="200" />
-  <img src="readme/ss_side.jpeg" alt="Screenshot of app frontend side bar" width="200" />
-  <img src="readme/ss_verify.jpeg" alt="Screenshot of app frontend for verifying degree" width="200" />
-  <img src="readme/ss_verified.jpeg" alt="Screenshot of app frontend after degree is verified to exist" width="200" />
-  <img src="readme/ss_degree.jpeg" alt="Screenshot of app frontend for saving degree as file" width="200" />
+  <img src="readme/ss_add.jpeg" alt="Screenshot of app frontend for adding degree" width="180" />
+  <img src="readme/ss_side.jpeg" alt="Screenshot of app frontend side bar" width="180" />
+  <img src="readme/ss_verify.jpeg" alt="Screenshot of app frontend for verifying degree" width="180" />
+  <img src="readme/ss_verified.jpeg" alt="Screenshot of app frontend after degree is verified to exist" width="180" />
+  <img src="readme/ss_degree.jpeg" alt="Screenshot of app frontend for saving degree as file" width="180" />
 </p>
 
 ## Instructions
