@@ -34,7 +34,7 @@ Flutter is an open-source UI framework developed by Google for building natively
 
 <p align="center">
   <img src="readme/ss_add.jpeg" alt="Screenshot of app frontend for adding degree" width="180" />
-  <img src="readme/ss_side.jpeg" alt="Screenshot of app frontend side bar" width="180" />
+<!--   <img src="readme/ss_side.jpeg" alt="Screenshot of app frontend side bar" width="300" /> -->
   <img src="readme/ss_verify.jpeg" alt="Screenshot of app frontend for verifying degree" width="180" />
   <img src="readme/ss_verified.jpeg" alt="Screenshot of app frontend after degree is verified to exist" width="180" />
   <img src="readme/ss_degree.jpeg" alt="Screenshot of app frontend for saving degree as file" width="180" />
